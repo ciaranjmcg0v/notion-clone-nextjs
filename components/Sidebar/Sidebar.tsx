@@ -1,5 +1,6 @@
 "use client";
 
+import NewDocumentButton from "@/components/Document/Actions/NewDocumentButton";
 import {
   Sheet,
   SheetContent,
@@ -8,13 +9,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { db } from "@/firebase";
+import { RoomDocument } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { collectionGroup, query, where } from "firebase/firestore";
 import { MenuIcon } from "lucide-react";
-import { useCollection } from "react-firebase-hooks/firestore";
-import NewDocumentButton from "@/components/Document/Actions/NewDocumentButton";
 import { useEffect, useState } from "react";
-import { RoomDocument } from "@/lib/utils";
+import { useCollection } from "react-firebase-hooks/firestore";
 import SidebarOption from "./SidebarOption";
 
 function Sidebar() {
@@ -52,7 +52,7 @@ function Sidebar() {
         } else {
           acc.editor.push({
             id: curr.id,
-           ...roomData,
+            ...roomData,
           });
         }
 
@@ -65,9 +65,8 @@ function Sidebar() {
     );
 
     setGroupedData(grouped);
-    console.log(grouped);
+    // console.log(grouped);
   }, [data]);
-  
 
   const menuOptions = (
     <>
@@ -90,17 +89,17 @@ function Sidebar() {
           </>
         )}
 
-      {/* Shared */}
-      {groupedData.editor.length > 0 && (
-        <>
-          <h2 className="text-gray-500 font-semibold text-sm">
-            Shared with Me
-          </h2>
-          {groupedData.editor.map((doc) => (
-            <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
-          ))}
-        </>
-      )}
+        {/* Shared */}
+        {groupedData.editor.length > 0 && (
+          <>
+            <h2 className="text-gray-500 font-semibold text-sm">
+              Shared with Me
+            </h2>
+            {groupedData.editor.map((doc) => (
+              <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
+            ))}
+          </>
+        )}
       </div>
     </>
   );

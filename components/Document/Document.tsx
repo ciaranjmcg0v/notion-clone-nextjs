@@ -16,7 +16,6 @@ function Document({ id }: { id: string }) {
   const [input, setInput] = useState<string>("");
   const [isUpdating, startTranstition] = useTransition();
   const isOwner = useOwner();
-  console.log("OPEN_AI_KEY", process.env.OPEN_AI_KEY);
 
   useEffect(() => {
     if (data) {
